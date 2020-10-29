@@ -1,0 +1,39 @@
+﻿@model API_Web_Server.Domain.Adm.LuckyDraw.Rewards
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="user">
+    <header class="user__header">
+        <h1 class="user__title">User Sign-Up Form</h1>
+    </header>
+    @using (Html.BeginForm("Create", "Rewards", FormMethod.Post, new { @class = "form" }))
+    {
+        <div class="form__group">
+            @Html.TextBoxFor(reward => reward.Name, new { placeholder = "Name", @class = "form__input" })
+        </div>
+
+        <div class="form__group">
+            @Html.TextBoxFor(reward => reward.Image, new { placeholder = "Image", @class = "form__input" })
+        </div>
+
+        <div class="form__group">
+            @Html.TextBoxFor(reward => reward.Quantity, new { placeholder = "Quantity", @class = "form__input" })
+        </div>
+
+        <div class="form__group">
+            @Html.TextBoxFor(reward => reward.Round, new { placeholder = "Round", @class = "form__input" })
+        </div>
+
+        <div class="form__group">
+            @Html.TextBoxFor(reward => reward.NoOfRound, new { placeholder = "No of Round", @class = "form__input" })
+        </div>
+
+        <button class="btn" type="submit" formaction='@Url.Action("Post2API", "Rewards")'>CREATE</button>
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

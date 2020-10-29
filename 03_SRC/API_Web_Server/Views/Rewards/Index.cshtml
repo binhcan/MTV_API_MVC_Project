@@ -1,0 +1,69 @@
+﻿@using API_Web_Server.Domain.Adm.LuckyDraw
+@{
+    Layout = null;
+}
+@{
+    var data = ViewBag.Message;
+    ViewData["total"] = ViewBag.Total;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Title  -->
+    <title>Lucky Draw...</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="img/adm/core-img/favicon.ico" />
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/adm/css/core-style.css" />
+    <link rel="stylesheet" href="~/css/adm/style.css" />
+</head>
+
+<body>
+    <partial name="_Header"/>
+    <!-- ##### Main Content Wrapper Start ##### -->
+    <div class="main-content-wrapper d-flex clearfix">
+        <partial name="_Menu" view-data="ViewData"/>
+        <!-- Product Catagories Area Start -->
+        <div class="products-catagories-area clearfix">
+            <div class="amado-pro-catagory clearfix">
+                <!-- Single Catagory -->
+                @{
+                    foreach (var item in data)
+                    {
+                        <div class="single-products-catagory clearfix">
+                            <a href='@Url.Action("Details", "Rewards", new { @item.Id })'>
+                                <img src="@item.Image" alt="" />
+                                <!-- Hover Content -->
+                                <div class="hover-content">
+                                    <p>Round: @item.Round</p>
+                                    <div class="line"></div>
+                                    @*<h4>@item.Name</h4>*@
+                                    @*<p>Quantity: @item.Quantity</p>*@
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <!-- Product Catagories Area End -->
+    </div>
+    <!-- ##### Main Content Wrapper End ##### -->
+    <partial name="_Footer" />
+    <script type="text/javascript" src="~/js/adm/luckydraw/jquery/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="~/js/adm/luckydraw/popper.min.js"></script>
+    <script type="text/javascript" src="~/js/adm/luckydraw/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/adm/luckydraw/plugins.js"></script>
+    <script type="text/javascript" src="~/js/adm/luckydraw/active.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿
+<div class="row">
+    <div class="col-12 col-lg-8 disabled-col-12">
+        <div class="single-product-wrapper">
+            <div class="product-description d-flex align-items-center justify-content-between disabled-on-dif-media">
+                <div class="product-meta-data">
+                    <p class="product-price">@Model.Name<br>(Số lượng: @Model.QuantityOfStage)</p>
+                    @*<div class="line"></div>*@
+                </div>
+            </div>
+            <div class="product-img">
+                <img src="@Model.Image" alt="">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-8 disabled-col-12-next-door">
+        <div class="shop_sidebar_area shop_sidebar_area-right">
+
+            <!-- ##### Single Widget ##### -->
+            <div class="widget catagory mb-50">
+                <!-- Widget Title -->
+                @*<h6 class="widget-title mb-30">THE WINNERs</h6>*@
+                <a>Quantity : @Model.QuantityOfStage</a>
+                <a href="cart.html" class="cart-nav"><img src="img/adm/core-img/winner-f.png" alt="" style="max-height: 100px;" /></a>
+
+                <!--  Catagories  -->
+                <div class="catagories-menu" id="winner-lst">
+                    <ul>
+                        @*@{
+                                foreach (var item in Model.Winners)
+                                {
+                                    <li><a href="#">@item.Ecode - @item.GivenName @item.FirstName - @item.DepartmentName</a></li>
+                                }
+                            }*@
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+﻿@using MVC_vs_API.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var data = ViewBag.Message;
+}
+<div class="row">
+    @{
+        int no = 1;
+        foreach (var item in data)
+        {
+            <div class="column">
+                <div class="card">
+                    <img src="img1.jpg" alt="No @no" style="width:100%">
+                    <div class="container">
+                        <h2>@item.GivenName  @item.FirstName</h2>
+                        <p class="title">Ecode: @item.Ecode</p>
+                        <p>Email: @item.Email</p>
+                        <div class="container-btn">
+                            @Html.ActionLink("Detail", "Details", new { @item.Id }, new { @class = "btn-detail"})
+                            @Html.ActionLink("Edit", "Edit", new { @item.Id }, new { @class = "btn-edit"})
+                            @Html.ActionLink("Delete", "Delete", new { @item.Id }, new { onclick = "return confirm('Are you sure you want to delete this user?');", @class = "btn-delete" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            no = no + 1;
+        }
+    }
+</div>

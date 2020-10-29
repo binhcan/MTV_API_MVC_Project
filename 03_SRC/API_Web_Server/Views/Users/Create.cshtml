@@ -1,0 +1,74 @@
+﻿@model API_Web_Server.Domain.Users.UserModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    @using (Html.BeginForm("Create", "Users", FormMethod.Post, new { @class = "form" }))
+    {
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="title">Edit Profile</h5>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-4 pr-md-1">
+                                <div class="form-group">
+                                    <label>E.Code</label>
+                                    @*<input type="text" class="form-control" placeholder="E.Code" value="@User.Identity.Name.">*@
+                                    @Html.TextBoxFor(user => user.User.Ecode, new { placeholder = "E.Code", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-md-4 pr-md-1">
+                                <div class="form-group">
+                                    <label>Họ</label>
+                                    @*<input type="text" class="form-control" disabled="" placeholder="Họ tên" value="@Model.GivenName @Model.FirstName">*@
+                                    @Html.TextBoxFor(user => user.User.GivenName, new { placeholder = "Họ", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-md-4 pr-md-1">
+                                <div class="form-group">
+                                    <label>Tên</label>
+                                    @Html.TextBoxFor(user => user.User.FirstName, new { placeholder = "Tên", @class = "form-control" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Bộ phận</label>
+                                    @Html.DropDownList("department", new SelectList(Model.Departments, "Id", "DepartmentName"), "Select", new { onchange = "document.location.href = '/Users/Create?DeptId=' + this.options[this.selectedIndex].value;" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Bộ phận</label>
+                                    @Html.DropDownList("RoleDep", new SelectList(Model.RolesInDepartments, "DeptId", "RoleName"))
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label>About Me</label>
+                                    @*<textarea rows="4" cols="80" class="form-control" value="Mike">@Model.About.</textarea>*@
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-fill btn-primary" formaction='@Url.Action("Create", "Users")'>LƯU</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

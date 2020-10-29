@@ -1,0 +1,51 @@
+﻿@using MTV.API.Helper
+@{
+    ViewData["Title"] = "Truy nguyên link kiện";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var data = ViewBag.Message;
+    var loadImage = ViewBag.LoadImage?? false;
+    @*var src_img = Html.VendonlotSrc(loadImage, data);*@
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card ">
+            <div class="card-header">
+                <h4 class="card-title"> TRUY NGUYÊN VENDOR</h4>
+                <div class="row">
+                    <div class="col-md-12 pr-md-1 search-vendorlot-form">
+                        <form asp-action="Index" method="get">
+                            <div class="form-actions no-color search-form-group">
+                                <a style="margin: auto;margin-left: initial;">
+                                    <input class="form-control" placeholder="Nhập LN" type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                                </a>
+                                <a>
+                                    <input type="submit" value="Tìm kiếm" class="btn btn-default search-btn" />
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas style="height: 76px;"></canvas>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 pr-md-1 search-vendorlot-form">
+                        @if (loadImage)
+                        {
+                            <div class="map"><img src='~/img/log/vendorlot/@data' style="height: inherit;"></div>
+                        }
+                        else
+                        {
+                            <div class="map"><img src="~/img/log/vendorlot/noimg.png" alt="..."></div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

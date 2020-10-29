@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="http://code.jquery.com/ui/1.8.23/jquery-ui.min.js"
+      type="text/javascript"
+    ></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#dragdiv').draggable();
+        $('#dropdiv').droppable({
+          drop: function () {
+            $(this).addClass('highlight').find('p').html('Dropped!');
+          },
+        });
+      });
+    </script>
+
+    <style type="text/css">
+      #dragdiv {
+        width: 100px;
+        height: 100px;
+        padding: 0.5em;
+        float: left;
+        margin: 10px 10px 10px 0;
+      }
+
+      #dropdiv {
+        width: 150px;
+        height: 150px;
+        padding: 0.5em;
+        float: left;
+        margin: 10px;
+      }
+
+      .content {
+        background: scroll 50% 50% #ffffff;
+        border: 1px solid #aaaaaa;
+        color: #222222;
+      }
+
+      .header {
+        background: scroll 50% 50% #cccccc;
+        border: 1px solid #aaaaaa;
+        color: #222222;
+        font-weight: bold;
+      }
+
+      .highlight {
+        background: scroll 50% top #eb5e00;
+        border: 1px solid #fed22f;
+        color: #fff;
+      }
+    </style>
+    <title>My ASP.NET Application</title>
+  </head>
+  <body>
+    <form id="form1" runat="server">
+      <div class="demo">
+        <div id="dragdiv" class="content">
+          <p>Drag me to my target</p>
+        </div>
+        <div id="dropdiv" class="header">
+          <p>Drop here</p>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>

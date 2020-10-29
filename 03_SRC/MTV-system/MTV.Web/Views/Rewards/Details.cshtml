@@ -1,0 +1,232 @@
+﻿@*@using API_Web_Server.Domain.Adm.LuckyDraw*@
+@model dynamic
+@{
+    Layout = null;
+}
+@{
+    ViewData["total"] = Model.TotalWinner;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Title  -->
+    <title>Becoming the winner of MTV.</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="img/adm/core-img/favicon.ico" />
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/adm/css/core-style.css" />
+    <link rel="stylesheet" href="~/css/adm/style.css" />
+    <link rel="stylesheet" href="~/css/adm/css/drawing.css" />
+    <link rel="stylesheet" href="~/css/adm/css/normalize.min.css" />
+    <link rel="stylesheet" href="~/css/adm/css/animate.min.css" />
+    <link rel="stylesheet" href="~/css/adm/css/main.css" />
+    <link rel="stylesheet" href="~/css/adm/css/slider.css" />
+</head>
+
+<body>
+    <!-- ##### Main Content Wrapper Start ##### -->
+    <div class="main-content-wrapper d-flex clearfix">
+        <partial name="_Menu" view-data="ViewData" />
+        <div class="shop_sidebar_area">
+
+            <!-- ##### Single Widget ##### -->
+            <div class="widget catagory mb-50">
+                <!-- Widget Title -->
+                <a> 01 </a>
+                <a href="cart.html" class="cart-nav"><img src="img/adm/core-img/round-icon.png" alt="" style="max-height: 60px;" /></a>
+                @*<h6 class="widget-title mb-30">ROUND</h6>*@
+
+                <!--  Catagories  -->
+                <div class="catagories-menu">
+                    <ul>
+                        @{
+                            foreach (var item in Model.Stages)
+                            {
+                                if (item.IsDrawn)
+                                {
+                                    <li class="stage-id"><a class = "strikethrough">Stage @item.Stage</a><a hidden class="stage-value">@item.Id</a></li>
+                                }
+                                else
+                                {
+                                    <li class="stage-id"><a>Stage @item.Stage</a><a hidden class="stage-value">@item.Id</a></li>
+                                }
+
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            <!-- ##### Single Widget ##### -->
+            <div class="widget catagory mb-50">
+                <!-- Button start Area Start -->
+                <div class="main-content">
+                    <div class="item button-hand" style="--bg-color: #fff;">
+                        <button id="start-btn" data-toggle="modal" data-target="#Video-effect-modal">
+                            <img id="notClick-btn-img" src="~/img/adm/core-img/notClick.png" alt="" />
+                            <img id="clicked-btn-img" src="~/img/adm/core-img/clicked.png" alt="" style="display:none" />
+                            START
+                        </button>
+                        @*<div class="name">Handsy</div>*@
+                    </div>
+                </div>
+                <!-- Button start Area End -->
+            </div>
+
+        </div>
+
+
+        <div class="amado_product_area section-padding-100 drawing-area">
+            <div class="container-fluid container-rewards-details" id="load-data">
+            </div>
+        </div>
+
+    </div>
+    <!-- ##### Main Content Wrapper End ##### -->
+    <!--Call your modal-->
+    <partial name="_Footer" />
+    @*<a id="result-btn-hidden" href="#animatedModal"></a>*@
+    <!-- Modal -->
+    <div class="modal fade" id="Video-effect-modal" tabindex="-1" role="dialog" aria-labelledby="VideoEffectMdalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="VideoEffectMdalLabel">Drawing</h4>
+                </div>
+                <div class="modal-body">
+                    @*<video width="100%" controls id="video1" style="width: 100%; height: auto; margin:0 auto;">*@
+                    <video controls id="video1">
+                        <source src="~/video/abc.mp4" type="video/mp4">
+                        Your browser doesn't support HTML5 video tag.
+                    </video>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="result-div" class="animated animatedModal-on zoomIn" style="position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        background-color: rgb(255, 255, 255);
+        overflow-y: auto;
+        z-index: 9999;
+        opacity: 1;
+        animation-duration: 0.6s;">
+
+        <div id="closebt-container" class="close-animatedModal">
+            <img class="closebt" src="~/img/adm/core-img/closebt.png">
+        </div>
+
+        @if (@Model.Winners.Length == 1)
+        {
+            <div id="modal-container" class="col-sm-8 col-md-8 col-lg-8 col-lg-offset-2">
+
+                <div class="thumb col-lg-4 one-winner winner-tag-a" style="opacity: 1; display: block; transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1); transform-origin: 50% 50% 0px;">
+                    <a>Ecode: @Model.Winners[0].Ecode<br>Name: @Model.Winners[0].GivenName @Model.Winners[0].FirstName<br>Department: @Model.Winners[0].DepartmentName</a>
+                </div>
+
+                <div class="thumb col-lg-4 winner-info" style="opacity: 1; display: block; transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1); transform-origin: 50% 50% 0px;">
+                    <img src="@Model.Rewards.Image" style="max-width: 600px;">
+                </div>
+
+            </div>
+        }
+        else if (@Model.Winners.Length == 2)
+        {
+            <div id="modal-container" class="col-sm-8 col-md-8 col-lg-8 col-lg-offset-2 lst-2winner">
+
+                <div class="thumb col-lg-4 two-winner winner-tag-a" style="opacity: 1; display: block; transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1); transform-origin: 50% 50% 0px;">
+                    <a>Ecode: @Model.Winners[0].Ecode<br>Name: @Model.Winners[0].GivenName @Model.Winners[0].FirstName<br>Department: @Model.Winners[0].DepartmentName</a>
+                </div>
+
+                <div class="thumb col-lg-4 two-winner winner-tag-a" style="opacity: 1; display: block; transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1); transform-origin: 50% 50% 0px;">
+                    <a>Ecode: @Model.Winners[1].Ecode<br>Name: @Model.Winners[1].GivenName @Model.Winners[1].FirstName<br>Department: @Model.Winners[1].DepartmentName</a>
+                </div>
+
+            </div>
+            <div id="modal-container" class="col-sm-8 col-md-8 col-lg-8 col-lg-offset-2">
+
+                <div class="thumb col-lg-4 winner-info" style="opacity: 1; display: block; transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1); transform-origin: 50% 50% 0px;">
+                    <img src="@Model.Rewards.Image" style="max-width: 600px;">
+                </div>
+
+            </div>
+        }
+        else if (@Model.Winners.Length == 3)
+        {
+            <div id="modal-container" class="col-sm-8 col-md-8 col-lg-8 col-lg-offset-2 lst-2winner">
+                @{
+                    foreach (var item in Model.Winners)
+                    {
+                        <div class="thumb col-lg-4 three-winner winner-tag-a" style="opacity: 1; display: block; transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1); transform-origin: 50% 50% 0px;">
+                            <a href="#">Ecode: @item.Ecode<br>Name: @item.GivenName @item.FirstName<br>Department: @item.DepartmentName</a>
+                        </div>
+                    }
+                }
+
+            </div>
+            <div id="modal-container" class="col-sm-8 col-md-8 col-lg-8 col-lg-offset-2">
+
+                <div class="thumb col-lg-4 winner-info" style="opacity: 1; display: block; transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1); transform-origin: 50% 50% 0px;">
+                    <img src="@Model.Rewards.Image" style="max-width: 600px;">
+                </div>
+
+            </div>
+        }
+        else if (@Model.Winners.Length >= 4)
+        {
+            <div id="modal-container" class="col-sm-8 col-md-8 col-lg-8 col-lg-offset-2 lst-2winner img-container-drawing">
+
+                <div class="thumb col-lg-4 three-winner winner-tag-a" style="opacity: 1; display: block; transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1); transform-origin: 50% 50% 0px;">
+                </div>
+
+                <div class="thumb col-lg-4 three-winner" style="opacity: 1; display: block; transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1); transform-origin: 50% 50% 0px;">
+                    <img src="@Model.Rewards.Image" style="max-width: 400px;">
+                </div>
+
+                <div class="thumb col-lg-4 three-winner winner-tag-a" style="opacity: 1; display: block; transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1); transform-origin: 50% 50% 0px;">
+                </div>
+
+            </div>
+            <div id="row_round">
+                @foreach (var item in Model.Winners)
+                {
+                    <div class="col-sm-4 result-box">
+                        <div class="thumb col-sm-4 multi-winner winner-tag-a" style="opacity: 1; display: block; transform: translateX(0px) translateY(0px) scaleX(1) scaleY(1); transform-origin: 50% 50% 0px;">
+                            <a style="font-size:20px" href="#"> @item.Ecode<br> <span style="color:#000">@item.GivenName @item.FirstName<br> @item.DepartmentName</span> </a>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        }
+    </div>
+
+    <!-- ##### Footer Area End ##### -->
+    <script type="text/javascript" src="~/js/adm/luckydraw/jquery/jquery-2.2.4.min.js"></script>
+    @*<script type="text/javascript" src="~/js/adm/luckydraw/jquery-1.11.min.js"></script>*@
+    <script type="text/javascript" src="~/js/adm/luckydraw/popper.min.js"></script>
+    <script type="text/javascript" src="~/js/adm/luckydraw/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/adm/luckydraw/plugins.js"></script>
+    <script type="text/javascript" src="~/js/adm/luckydraw/active.js"></script>
+    <script type="text/javascript" src="~/js/adm/luckydraw/luckydraw_main.js"></script>
+    <script type="text/javascript" src="~/js/adm/luckydraw/animatedModal.js"></script>
+    <script type="text/javascript" src="~/js/adm/luckydraw/plugins_ani.js"></script>
+</body>
+</html>

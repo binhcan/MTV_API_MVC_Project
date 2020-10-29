@@ -1,0 +1,40 @@
+﻿@model MVC_vs_API.Models.Users
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="user">
+    <header class="user__header">
+        <h1 class="user__title">User Sign-Up Form</h1>
+    </header>
+    @using (Html.BeginForm("Create", "Users", FormMethod.Post, new { @class = "form" }))
+    {
+        <div class="form__group">
+            @Html.TextBoxFor(user => user.Ecode, new { placeholder = "Ecode", @class = "form__input" })
+        </div>
+
+        <div class="form__group">
+            @Html.TextBoxFor(user => user.FirstName, new { placeholder = "First Name", @class = "form__input" })
+        </div>
+
+        <div class="form__group">
+            @Html.TextBoxFor(user => user.GivenName, new { placeholder = "Given Name", @class = "form__input" })
+        </div>
+
+        <div class="form__group">
+            @Html.TextBoxFor(user => user.Email, new { placeholder = "Email", @class = "form__input" })
+        </div>
+
+        <div class="form__group">
+            @Html.PasswordFor(user => user.Password, new { placeholder = "Password", @class = "form__input" })
+        </div>
+
+        <button class="btn" type="submit" formaction='@Url.Action("Post2API", "Users")'>CREATE</button>
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

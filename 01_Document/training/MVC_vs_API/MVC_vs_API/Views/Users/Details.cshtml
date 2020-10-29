@@ -1,0 +1,13 @@
+﻿@using MVC_vs_API.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Detail</h3>
+@{
+    var data = ViewBag.Message;
+}
+<h3>Ecode: @data.Ecode</h3>
+<h3>Name: @data.GivenName @data.FirstName</h3>
+<h3>Email: @data.Email</h3>

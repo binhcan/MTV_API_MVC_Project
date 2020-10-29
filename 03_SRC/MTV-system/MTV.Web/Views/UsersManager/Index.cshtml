@@ -1,0 +1,98 @@
+﻿@using MTV.API.Helper
+@model MTV.API.Domain.Users.Users
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="title">Edit Profile</h5>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-4 pr-md-1">
+                            <div class="form-group">
+                                <label>E.Code</label>
+                                <input type="text" class="form-control" disabled="" placeholder="E.Code" value="@User.Identity.Name.">
+                            </div>
+                        </div>
+                        <div class="col-md-4 pr-md-1">
+                            <div class="form-group">
+                                <label>Họ tên</label>
+                                <input type="text" class="form-control" disabled="" placeholder="Họ tên" value="@Model.GivenName @Model.FirstName">
+                            </div>
+                        </div>
+                        <div class="col-md-4 pr-md-1">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email</label>
+                                <input type="text" class="form-control" disabled="" placeholder="E.Code" value="@Model.Email">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Địa chỉ</label>
+                                <input type="text" class="form-control" placeholder="Nhà" value="@Model.Address">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label>About Me</label>
+                                <textarea rows="4" cols="80" class="form-control" value="Mike">@Model.About.</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-fill btn-primary">Save</button>
+                @Html.ActionLink("Tạo mới", "Create", "UsersManager")
+                @Html.ActionLink("Danh sách", "UsersManager", "UsersManager")
+                @Html.ActionLink("Quản lý quyền", "Index", "Roles")
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-user">
+            <div class="card-body">
+                <p class="card-text"></p>
+                <div class="author">
+                    <div class="block block-one"></div>
+                    <div class="block block-two"></div>
+                    <div class="block block-three"></div>
+                    <div class="block block-four"></div>
+                    <a href="javascript:void(0)">
+                        <img class="avatar" src="~/img/home/emilyz.jpg" alt="...">
+                        <h5 class="title">@Model.GivenName @Model.FirstName</h5>
+                    </a>
+                    <p class="description">
+                        @Model.About
+                    </p>
+                </div>
+                <p></p>
+                @*<div class="card-description">
+                        @Model.About
+                    </div>*@
+            </div>
+            <div class="card-footer">
+                <div class="button-container">
+                    <button href="javascript:void(0)" class="btn btn-icon btn-round btn-facebook">
+                        <i class="fab fa-facebook"></i>
+                    </button>
+                    <button href="javascript:void(0)" class="btn btn-icon btn-round btn-google">
+                        <i class="tim-icons icon-mobile"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

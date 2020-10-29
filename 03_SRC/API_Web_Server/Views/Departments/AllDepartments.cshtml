@@ -1,0 +1,28 @@
+﻿@using API_Web_Server
+@{
+    ViewData["Title"] = "AllDepartments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>AllDepartments</h1>
+
+@{
+    var data = ViewBag.Message;
+}
+<div class="row">
+    @{
+        int no = 1;
+        foreach (var item in data)
+        {
+            <div class="column">
+                <div class="card">
+                    <div class="container">
+                        <h2>@item.DepartmentName</h2>
+                        <p class="title">Description: @item.Description</p>                       
+                    </div>
+                </div>
+            </div>
+            no = no + 1;
+        }
+    }
+</div>

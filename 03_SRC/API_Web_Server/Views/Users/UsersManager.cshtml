@@ -1,0 +1,147 @@
+﻿@using API_Web_Server.Helper
+@using API_Web_Server.Domain.Home.PermissionPart
+@using API_Web_Server.Domain.Home.RolesToPermission
+@model Pagination<API_Web_Server.Domain.Users.UserFullInfo>
+@*@model dynamic*@
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+@{
+    ViewData["Title"] = "UsersManager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card ">
+            <div class="card-header">
+                <h4 class="card-title"> Danh sách người dùng</h4>
+                <div class="row">
+                    <div class="col-md-6 pr-md-1 search-form">
+                        <form asp-action="UsersManager" method="get">
+                            <div class="form-actions no-color search-form-group">
+                                <a style="margin: auto;">
+                                    <input class="form-control" placeholder="Tìm theo tên hoặc Ecode" type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                                </a>
+                                <a>
+                                    <input type="submit" value="Tìm kiếm" class="btn btn-default search-btn" />
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6 pr-md-1 group-btn-search search-btn-right">
+                        <a class="btn btn-default" asp-action="Create">Tạo user mới</a>
+                        <a class="btn btn-default" asp-action="UsersManager">Xóa tìm kiếm</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table tablesorter " id="">
+                        <thead class=" text-primary">
+                            <tr>
+                                <th>
+                                    E.Code
+                                </th>
+                                <th>
+                                    Họ tên
+                                </th>
+                                <th class="col-hidden">
+                                    Email
+                                </th>
+                                <th class="col-hidden">
+                                    Bộ phận
+                                </th>
+                                <th class="col-hidden">
+                                    Quyền truy cập
+                                </th>
+                                @if (User.UserHasThisPermission(Permissions.ADM))
+                                {
+                                    <th class="text-center">
+                                        Sửa
+                                    </th>
+                                    <th class="text-center">
+                                        Xóa
+                                    </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.Ecode
+                                        </td>
+                                        <td>
+                                            @item.GivenName @item.FirstName
+                                        </td>
+                                        <td class="col-hidden">
+                                            @item.Email
+                                        </td>
+                                        <td class="col-hidden">
+                                            @item.DepartmentName
+                                        </td>
+                                        <td class="col-hidden">
+                                            @item.RoleName
+                                        </td>
+                                        @if (User.UserHasThisPermission(Permissions.ADM))
+                                        {
+                                            <td class="text-center">
+                                                <a href="@Url.Action("UsersManager", "Users") ">
+                                                    <i class="tim-icons icon-pencil"></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="@Url.Action("UsersManager", "Users") ">
+                                                    <i class="tim-icons icon-trash-simple"></i>
+                                                </a>
+                                            </td>
+                                        }
+
+                                    </tr>
+                                }
+                            }
+                        <tr class="last-row-user">
+                            <td class="col-hidden">
+                            </td>
+                            <td class="col-hidden">
+                            </td>
+                            <td class="col-hidden">
+                            </td>
+                            @if (User.UserHasThisPermission(Permissions.ADM))
+                            {
+                                <td class="col-hidden">
+                                </td>
+                                <td class="col-hidden">
+                                </td>
+                            }
+                            <td class="text-center">
+                                <a asp-action="UsersManager"
+                                   asp-route-pageNumber="@(Model.PageIndex - 1)"
+                                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                                   class="btn btn-default @prevDisabled">
+                                    Trước
+                                </a>
+
+                            </td>
+                            <td class="text-center">
+                                <a asp-action="UsersManager"
+                                   asp-route-pageNumber="@(Model.PageIndex + 1)"
+                                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                                   class="btn btn-default @nextDisabled">
+                                    Sau
+                                </a>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

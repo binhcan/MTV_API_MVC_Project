@@ -1,0 +1,45 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+/03_SRC/API_Web_Server/bin
+/03_SRC/API_Web_Server/obj
+/03_SRC/API_Web_Server/Logs
+/03_SRC/API_Web_Server/.vs/API_Web_Server/v16/.suo
+/03_SRC/API_Web_Server/.vs/API_Web_Server/v16/*.suo
+/03_SRC/MTV-system/MTV.Web/bin
+/03_SRC/MTV-system/MTV.Web/obj
+/03_SRC/MTV-system/MTV.Utilities/bin
+/03_SRC/MTV-system/MTV.Utilities/obj
+/03_SRC/MTV-system/MTV.API/bin
+/03_SRC/MTV-system/MTV.API/obj
+/03_SRC/MTV-system/.vs/MTV-system/v16
+/03_SRC/MTV-system/MTV.Web/Logs
+/03_SRC/MTV-system/.vs/MTV-system/DesignTimeBuild

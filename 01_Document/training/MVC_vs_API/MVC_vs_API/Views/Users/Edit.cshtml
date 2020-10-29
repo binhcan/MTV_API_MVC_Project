@@ -1,0 +1,36 @@
+﻿@model MVC_vs_API.Models.Users
+@*@using MVC_vs_API.Models*@
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="user">
+        <header class="user__header">
+            <h1 class="user__title">Update user form</h1>
+        </header>
+        @using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { @class = "form" }))
+        {
+            @Html.HiddenFor(user => user.Id)
+            <div class="form__group">
+                @Html.EditorFor(user => user.Ecode, new { htmlAttributes = new {@class = "form__input", disabled = "disabled" } })
+            </div>
+
+            <div class="form__group">
+                @Html.EditorFor(user => user.FirstName, new { htmlAttributes = new { @class = "form__input" } })
+            </div>
+
+            <div class="form__group">
+                @Html.EditorFor(user => user.GivenName, new { htmlAttributes = new { @class = "form__input" } })
+            </div>
+
+            <div class="form__group">
+                @Html.EditorFor(user => user.Email, new { htmlAttributes = new { @class = "form__input" } })
+            </div>
+
+            <button class="btn" type="submit" formaction='@Url.Action("UpdateUser", "Users")'>SAVE</button>
+        }
+    </div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

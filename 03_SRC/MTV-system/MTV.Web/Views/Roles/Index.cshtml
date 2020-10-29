@@ -1,0 +1,101 @@
+﻿@using MTV.Utilities
+@using MTV.API.Domain.Home.PermissionPart
+@using MTV.API.Domain.Home.RolesToPermission
+@model MTV.API.Persistence.Repositories.Home.RolePageDto
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card ">
+            <div class="card-header">
+                <h4 class="card-title"> Permission Creation</h4>
+                <h3>List of roles, with their permission.</h3>
+                <div class="row">
+                    <div class="col-md-6 pr-md-1 search-form">
+                        <form asp-action="UsersManager" method="get">
+                            <div class="form-actions no-color search-form-group">
+                                <a style="margin: auto;">
+                                    <input class="form-control" placeholder="Tìm theo bộ phận" type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                                </a>
+                                <a>
+                                    <input type="submit" value="Tìm kiếm" class="btn btn-default search-btn" />
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                    @if (User.UserHasThisPermission(Permissions.RoleChange))
+                    {
+                        <div class="col-md-6 pr-md-1 group-btn-search search-btn-right">
+                            <a class="btn btn-default" asp-action="Create">Tạo quyền mới</a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table tablesorter " id="">
+                        <thead class=" text-primary">
+                            <tr>
+                                <th>
+                                    Tên Quyền
+                                </th>
+                                <th>
+                                    Danh sách quyền
+                                </th>
+                                <th class="col-hidden">
+                                    Mô tả
+                                </th>
+                                <th class="col-hidden">
+                                    Module được truy cập
+                                </th>
+                                @if (User.UserHasThisPermission(Permissions.RoleChange))
+                                {
+                                    <th class="text-center">
+                                        Sửa
+                                    </th>
+                                    <th class="text-center">
+                                        Xóa
+                                    </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var roleData in Model.Roles)
+                                {
+                                    for (int i = 0; i < roleData.PermissionsWithDesc.Count; i++)
+                                    {
+                                        <tr>
+                                            <td>@(i == 0 ? roleData.RoleName : "")</td>
+                                            <td>@roleData.PermissionsWithDesc[i].PermissionName</td>
+                                            <td class="col-hidden">@roleData.PermissionsWithDesc[i].Description</td>
+                                            <td class="col-hidden">@roleData.PermissionsWithDesc[i].LinkedToModule</td>
+                                            @if (User.UserHasThisPermission(Permissions.RoleChange) && i == 0)
+                                            {
+                                                <td class="text-center">
+                                                    <a href="@Url.Action("UsersManager", "Users") ">
+                                                        <i class="tim-icons icon-pencil"></i>
+                                                    </a>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="@Url.Action("UsersManager", "Users") ">
+                                                        <i class="tim-icons icon-trash-simple"></i>
+                                                    </a>
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

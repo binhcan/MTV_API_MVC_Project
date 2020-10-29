@@ -1,0 +1,192 @@
+﻿@model MTV.API.Domain.Users.UserModel
+@using MTV.API.Domain.Home.RolesToPermission;
+@using MTV.API.Domain.Home.PermissionPart;
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var data = Model;
+}
+
+@if (!String.IsNullOrEmpty(Model.Message))
+{
+    <!-- Start Modal -->
+    <div class="modal fade show" id="error-modal-id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: block;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <button type="button" class="close" data-dismiss="modal" id="modal-create-user-icon-close" aria-hidden="true">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <h6 class="title title-up">Thông báo</h6>
+                </div>
+                <div class="modal-body" style="text-align: center;">
+                    <p>
+                        @Model.Message
+                    </p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-darker" id="modal-create-user-btn-close" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  End Modal -->
+}
+
+@using (Html.BeginForm("Create", "UsersManager", FormMethod.Post, new { @id = "TypeValidation" }))
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">E.Code</h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        @Html.TextBoxFor(user => user.Ecode, new { @class = "form-control timepicker", @type = "number", @name = "number", @required = "required" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Họ</h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        @Html.TextBoxFor(user => user.GivenName, new { @class = "form-control timepicker", @type = "text", @name = "required", @required = "required" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Tên</h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        @Html.TextBoxFor(user => user.FirstName, new { @class = "form-control timepicker", @type = "text", @name = "required", @required = "required" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            @if (User.UserHasThisPermission(Permissions.UserChange))
+                            {
+                                <h4 class="card-title">Quyền quản trị</h4>
+                                <div class="row mb-3">
+                                    <div class="col-md-6 ml-auto mr-auto">
+                                        @Html.CheckBoxFor(user => user.IsAdmin, new { @class = "bootstrap-switch", @onchange = "this.form.action+='?flag=" + ViewData["No"] + "';document.forms[0].submit();" })
+                                    </div>
+                                    <div class="col-md-6 ml-auto mr-auto">
+                                        @if (Model.IsAdmin)
+                                        {
+                                            @Html.HiddenFor(user => user.AdminDeptID)
+                                            @Html.DropDownListFor(user => user.AdminPermissionID, Model.AdminPermissions, new { @onchange = "this.form.action+='?flag=" + ViewData["No"] + "';document.forms[0].submit();", @class = "selectpicker" })
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                            <h4 class="card-title">Quyền trên bộ phận</h4>
+                            <div class="row">
+                                <div class="col-md-6 ml-auto mr-auto">
+                                    @Html.DropDownListFor(user => user.DepId, Model.Departments, new { @onchange = "this.form.action+='?flag=" + ViewData["No"] + "';document.forms[0].submit();", @class = "selectpicker" })
+                                </div>
+                                <div class="col-md-6 ml-auto mr-auto">
+                                    @Html.DropDownListFor(user => user.RolesInDepartmentId, Model.RolesInDepartments, new { @onchange = "this.form.action+='?flag=" + ViewData["No"] + "';document.forms[0].submit();", @class = "selectpicker" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            @Html.HiddenFor(user => user.flag)
+                            @Html.HiddenFor(user => user.NoOfProject)
+                            <h4 class="card-title">Quyền trên Project</h4>
+                            @for (int i = 0; i < (Model.NoOfProject + 1); i++)
+                            {
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        @Html.DropDownListFor(user => user.ListProjectID[i], Model.PermissionInProjects[i].Projects, new { @onchange = "this.form.action+='?flag=" + ViewData["No"] + "';document.forms[0].submit();", @class = "selectpicker" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.DropDownListFor(user => user.ListRoleInProjectID[i], Model.PermissionInProjects[i].RolesInProjects, new { @onchange = "this.form.action+='?flag=" + ViewData["No"] + "';document.forms[0].submit();", @class = "selectpicker" })
+                                    </div>
+                                    @if (i == Model.NoOfProject)
+                                    {
+                                        <div class="col-md-4 plus-btn-sign">
+                                            <div class="row mb-3">
+                                                @*<div class="col-lg-5 col-md-6 col-sm-3">*@
+                                                <div>
+                                                    <a href="@Url.Action("Create", "UsersManager", new { flag = Model.NoOfProject + 1 })">
+                                                        <i class="tim-icons icon-simple-add text-success"></i>
+                                                    </a>
+                                                </div>
+                                                @if (Model.NoOfProject != 0)
+                                                {
+                                                    <div style="padding-left: 15px;">
+                                                        <a href="@Url.Action("Create", "UsersManager", new { flag = Model.NoOfProject - 1 })">
+                                                            <i class="tim-icons icon-simple-delete text-success"></i>
+                                                        </a>
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-fill btn-primary" formaction='@Url.Action("PostDataCreate", "UsersManager")'>LƯU</button>
+                </div>
+            </div>
+            <!-- end card -->
+        </div>
+    </div>
+}
+
+@section js_section {
+    <script>
+        function setFormValidation(id) {
+            $(id).validate({
+                highlight: function (element) {
+                    $(element).closest('.form-group').removeClass('has-success').addClass('has-danger');
+                    $(element).closest('.form-check').removeClass('has-success').addClass('has-danger');
+                },
+                success: function (element) {
+                    $(element).closest('.form-group').removeClass('has-danger').addClass('has-success');
+                    $(element).closest('.form-check').removeClass('has-danger').addClass('has-success');
+                },
+                errorPlacement: function (error, element) {
+                    $(element).closest('.form-group').append(error);
+                },
+            });
+        }
+
+        $(document).ready(function () {
+            setFormValidation('#TypeValidation');
+
+            $("#modal-create-user-btn-close").click(() => {
+                $("#error-modal-id").removeClass('show');
+                $("#error-modal-id").css("display", "none");
+            });
+
+            $("#modal-create-user-icon-close").click(() => {
+                $("#error-modal-id").removeClass('show');
+                $("#error-modal-id").css("display", "none");
+            });
+
+        });
+    </script>
+}

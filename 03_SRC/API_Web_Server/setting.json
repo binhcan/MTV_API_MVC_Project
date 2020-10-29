@@ -1,0 +1,52 @@
+﻿{
+  "Message": {
+    "success": {
+      "S001": "Proccessing of {0} with {1} has just done successful."
+    },
+    "error": {
+      "E001": "Proccessing of {0} has failed.Root cause: {1}",
+      "E002": "Username or password is incorrect",
+      "E-COM-002": "Không tìm thấy thông tin quyền của người dùng trên database",
+      "E-COM-003": "There should be at least one permission associated with a role.",
+      "E-COM-004": "Lưu thông tin người dùng vào database không thành công.",
+      "E-COM-005": "Không tìm thấy dữ liệu của người dùng.",
+      "E-COM-006": "Định dạng file ảnh không hợp lệ.",
+      "E-COM-007": "Lỗi xảy ra trong quá trình tải file lên server.",
+      "E-COM-008": "Không tìm được file trên server.",
+      "E-COM-009": "Xảy ra lỗi bất thường trong quá trình tải file từ server.",
+      "E-COM-010": "Không tìm thấy thông tin bản ghi trên database.",
+      // Error code của phần mềm LOG
+      "E-LOG-001": "Mã QR Code không hợp lệ.",
+      "E-LOG-002": "Xảy ra lỗi bất thường trong hệ thống. Bạn hãy liên lạc ngay với bộ phận SE của MTV.",
+      "E-LOG-003": "Xảy ra lỗi trong quá trình tạo file Barcode.",
+      "E-LOG-004": "Xảy ra lỗi trong quá trình tạo file in tem.",
+      "E-LOG-005": "Không tìm được máy in trên server.",
+      "E-LOG-006": "Xảy ra lỗi trong quá trình in tem.",
+      // Error code của web Lucky Draw ADM
+      "E-ADM-001": "Không tìm thấy thông tin của phần thưởng.",
+      "E-ADM-002": "Tạo mới phần thưởng không thành công.",
+      "E-ADM-003": "Không tìm thấy phần thưởng ứng với mã nhân viên {0}.",
+      "E-ADM-004": "Không lưu được thông tin kết quả phần thưởng vào database.",
+      "E-ADM-005": "Không lưu được thông tin vòng quay phần thưởng vào database."
+
+    }
+  },
+  "PRINTERS": {
+    "TEV-MLP-01": "10.120.106.201",
+    "TEV-MLP-02": "10.120.106.202",
+    "TEV-MLP-03": "10.120.106.203",
+    "TEV-MLP-04": "10.120.106.204",
+    "TEV-MLP-05": "10.120.106.205",
+    "TEV-MLP-06": "10.120.106.206",
+    "TEV-MLP-07": "10.120.106.207"
+  },
+
+  // Setting đường dẫn đến thư mục trên Server.
+  "UPLOAD-HOST": "D:\\FILES-UPLOAD\\",
+  "VENDOR-IMG-HOST": "D:\\VENDOR_IMG\\",
+  "PRINTER-HOST": "D:\\LOG_PRINTING\\",
+
+  // Setting cho các templates.
+  "FILE_TEMPLATE_LOG_TEVRP": "\\Helper\\PDF\\Templates\\LOG_TEVRP.pdf",
+  "FILE_QR_CODE_TEMP": "\\Helper\\Barcode\\output\\barcode.png"
+}
